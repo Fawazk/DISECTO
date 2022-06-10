@@ -20,7 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('store/', include('store.urls')),
-    # path('cart/', include('cart.urls')),
+    path('cart/', include('cart.urls')),
     # path('user/', include('user.urls')),
     
 ]

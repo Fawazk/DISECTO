@@ -1,8 +1,5 @@
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
 from . models import ItemModel
 from . serializers import ItemModelSerializer
-from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 # Create your views here.
