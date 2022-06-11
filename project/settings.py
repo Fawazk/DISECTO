@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     
+     'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,6 +125,27 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = STATIC_ROOT = BASE_DIR / "staticfiles" 
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
+#logger
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}
+
+#cron job
+CRONJOBS = [
+    ('*/5 * * * *', 'cart.cron.f')
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

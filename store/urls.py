@@ -4,5 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.ItemList.as_view(),name='items'),
-    path('item/<slug:slug>', views.ItemDetail.as_view(),name='item')
+    path('create-item', views.ItemCreate.as_view(),name='create-item'),
+    path('item/<slug:slug>', views.ItemDetail.as_view(),name='item'),
+    
 ]

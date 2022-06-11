@@ -17,11 +17,20 @@ import os
 # Create your views here.
 
 class CartItemList(generics.ListCreateAPIView):
+    """
+    POST and GET method for creating 
+    a cart item and listing all cart-items for the 
+    currently authenticated user..
+    """
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
     permission_classes = [IsAuthenticated]
     
     def perform_create(self, serializer):
+        """
+        This view update user coloumn with currently
+        authenticated user when post method is called.
+        """
         serializer.save(user=self.request.user, )
         
     def get_queryset(self):
@@ -38,15 +47,23 @@ class CartItemList(generics.ListCreateAPIView):
 
         return CartItem.objects.none()
 
+
 class CartDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    GET, UPDATE, DELETE methods for a cart item
+    """
     permission_classes = [IsAuthenticated]
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
     lookup_field = 'id'
-    
+
+
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 def invoice(request):
+    """
+    Generate invoice for the cart items available for currently authenticated user.
+    """
     cartitems = CartItem.objects.filter(user=request.user)
     if not cartitems:
         return JsonResponse({'Info':'No CartItems found'})
