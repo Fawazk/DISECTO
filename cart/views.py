@@ -1,10 +1,19 @@
+from datetime import date
 from . models import CartItem
 from . serializers import CartItemSerializer
-from django.http import HttpResponse
+from django.http import JsonResponse
 from rest_framework import generics, permissions
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from django.template.loader import render_to_string
+
+#invoice generation 
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from . utils import render_to_pdf
+import os
+
 # Create your views here.
 
 class CartItemList(generics.ListCreateAPIView):
@@ -17,7 +26,7 @@ class CartItemList(generics.ListCreateAPIView):
         
     def get_queryset(self):
         """
-        This view returns a list of all the authors for the currently
+        This view returns a list cart-items for the currently
         authenticated user.
 
         Returns empyt list if user Anonymous
@@ -35,34 +44,22 @@ class CartDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
     lookup_field = 'id'
     
-# @api_view(['GET'])
-# @permission_classes([permissions.IsAuthenticated])
-# def invoice(request, invoice_id):
-#     invoice = get_object_or_404(Invoice, pk=invoice_id, created_by=request.user)
-#     team = Team.objects.filter(created_by=request.user).first()
-
-#     template_name = 'pdf.html'
-
-#     if invoice.is_credit_for:
-#         template_name = 'pdf_creditnote.html'
-
-#     template = get_template(template_name)
-#     html = template.render({'invoice': invoice, 'team': team})
-#     pdf = pdfkit.from_string(html, False, options={})
-
-#     response = HttpResponse(pdf, content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
-
-#     return response
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
 def invoice(request):
-    invoice = CartItem.objects.filter(user=request.user)
-    template_path = 'invoice.html'
-
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
-
-    html = render_to_string(template_path, {'invoice': invoice})
-    print (html)
-
-    return response
+    cartitems = CartItem.objects.filter(user=request.user)
+    if not cartitems:
+        return JsonResponse({'Info':'No CartItems found'})
+    grandtotal = 0
+    for item in cartitems:
+        grandtotal += item.product.price*item.quantity
+    today = date.today()
+    data = {
+        'cartitems': cartitems,
+        'grandtotal': grandtotal,
+        'user' : request.user,
+        'today':today
+    }
+    pdf = render_to_pdf('invoice.html',data)
+    return HttpResponse(pdf,content_type='application/pdf')
 
