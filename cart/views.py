@@ -57,6 +57,19 @@ class CartDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CartItemSerializer
     lookup_field = 'id'
 
+    def get_queryset(self):
+        """
+        This view returns a list cart-items for the currently
+        authenticated user.
+
+        Returns empyt list if user Anonymous
+        """
+        user = self.request.user
+
+        if not user.is_anonymous:
+            return CartItem.objects.filter(user=user)
+
+        return CartItem.objects.none()
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
