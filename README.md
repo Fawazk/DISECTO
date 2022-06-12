@@ -1,16 +1,26 @@
 # DISECTO
 
+# Admin user credentials <br>
+username: admin <br>
+password: admin <br>
 
-#APIs Available:
+# Users credentials <br>
+username: sanin <br>
+password: qaz123#QAZ <br>
 
-=> GET method for product list http://127.0.0.1:8000/store/ </br>
-=> POST method for admin to create new product http://127.0.0.1:8000/store/create-item </br>
-=> PUT, DELETE and GET methods for admin to update database http://127.0.0.1:8000/store/item/<slug:slug> <br/>
-=> GET method for showing cart-items for current user http://127.0.0.1:8000/cart/ <br/>
-=> GET, DELETE and PUT methods for updating cart http://127.0.0.1:8000/cart/update/<int:id> <br/>
-=> GET method for display an invoice of the current cart-items http://127.0.0.1:8000/cart/invoice <br/>
+username: fawaz <br>
+password: qaz123#QAZ <br>
 
-#Cron Job At every 12Am for updating expired produts:
+# APIs Available (Heroku server):
 
-=> GET method for expired product list http://127.0.0.1:8000/store/expired-items <br/>
+=> GET method for product list https://disectoo.herokuapp.com/store/ <br>
+=> POST method for admin to create new product https://disectoo.herokuapp.com/store/create-item <br>
+=> PUT, DELETE and GET methods for admin to update database https://disectoo.herokuapp.com/store/item/<:slug> <br>
+=> GET method for showing cart-items for current user https://disectoo.herokuapp.com/cart/ <br>
+=> GET, DELETE and PUT methods for updating cart https://disectoo.herokuapp.com/cart/update/<:id> <br>
+=> GET method for displaying a pdf invoice of the current cart-items https://disectoo.herokuapp.com/cart/invoice <br>
+
+# Cron Job At every 12Am for updating expired produts:
+
+=> GET method for expired product list https://disectoo.herokuapp.com/store/expired-items <br>
 
