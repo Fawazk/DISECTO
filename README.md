@@ -8,7 +8,7 @@ password: admin <br>
 username: sanin <br>
 password: qaz123#QAZ <br>
 
-username: fawaz <br>
+username: user1 <br>
 password: qaz123#QAZ <br>
 
 # APIs Available (Heroku server):
