@@ -1,0 +1,9 @@
+2022-06-12 12:39:31,528 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2022-06-12 13:16:39,728 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2022-06-12 13:17:01,208 django.request WARNING  Not Found: /
+2022-06-12 13:17:01,289 django.request WARNING  Not Found: /favicon.ico
+2022-06-12 13:17:06,574 django.request WARNING  Forbidden: /store/
+2022-06-12 13:17:35,252 django.utils.autoreload INFO     /home/sanin/Documents/DISECTO/project/settings.py changed, reloading.
+2022-06-12 13:17:35,980 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2022-06-12 13:22:56,951 django.utils.autoreload INFO     /home/sanin/Documents/DISECTO/project/settings.py changed, reloading.
+2022-06-12 13:22:57,371 django.utils.autoreload INFO     Watching for file changes with StatReloader
