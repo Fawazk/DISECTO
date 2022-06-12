@@ -11,6 +11,10 @@ password: qaz123#QAZ <br>
 username: user1 <br>
 password: qaz123#QAZ <br>
 
+# Models used 
+1. ItemModel : For product details
+2. CartItem : For each cart-items
+
 # APIs Available (Heroku server):
 
 => GET method for product list https://disectoo.herokuapp.com/store/ <br>
@@ -24,3 +28,13 @@ password: qaz123#QAZ <br>
 
 => GET method for expired product list https://disectoo.herokuapp.com/store/expired-items <br>
 
+# Validations
+1. Only admin can create, Update, Delete product
+2. Users can only get update and delete thier own cart-items
+
+# Documentations used
+
+1. Django Rest Framework : https://www.django-rest-framework.org/
+2. Django : https://docs.djangoproject.com/en/4.0/
+3. Cron Job : https://pypi.org/project/python-crontab/
+4. Heroku Hosting : https://www.youtube.com/watch?v=kBwhtEIXGII
