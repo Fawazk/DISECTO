@@ -1,3 +1,4 @@
+from operator import ge
 from . models import ItemModel
 from . serializers import ItemModelSerializer
 from rest_framework import generics
@@ -31,4 +32,16 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemModelSerializer
     lookup_field = 'slug'
     
+class ExpiredItems(generics.ListAPIView):
+    """
+    GET method for expired products 
+    """
+    queryset = ItemModel.objects.all()
+    serializer_class = ItemModelSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        """
+        Search for expired items only.
+        """
+        return ItemModel.objects.filter(is_expired=True)

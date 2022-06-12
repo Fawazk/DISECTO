@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     
-     'django_crontab',
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -121,32 +121,52 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = STATIC_ROOT = BASE_DIR / "staticfiles" 
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 #logger
-import os
+import logging
+
+APP_LOG_FILENAME = os.path.join(BASE_DIR,'log/app.log')
+ERROR_LOG_FILENAME = os.path.join(BASE_DIR,'log/error.log')
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters':{
+        'console':{
+            'format':'%(name)-12s %(levelname)-8s %(message)s'
+        },
+        'file':{
+            'format':'%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        }
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter':'console'
         },
+        'file':{
+            'level':'DEBUG',
+            'class':'logging.FileHandler',
+            'formatter':'file',
+            'filename': APP_LOG_FILENAME
+        }
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
+    'loggers': {
+        '':{
+            'level': 'DEBUG',
+            'handlers': ['console','file']
+        }
     },
 }
 
-#cron job
-CRONJOBS = [
-    ('*/5 * * * *', 'cart.cron.f')
-]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#cron job for Every 12AM clock
+CRONJOBS = [
+
+    ('0 0 * * *', 'store.cron.update_db')
+]

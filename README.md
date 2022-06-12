@@ -10,3 +10,7 @@
 => GET, DELETE and PUT methods for updating cart http://127.0.0.1:8000/cart/update/<int:id> <br/>
 => GET method for display an invoice of the current cart-items http://127.0.0.1:8000/cart/invoice <br/>
 
+#Cron Job At every 12Am for updating expired produts:
+
+=> GET method for expired product list http://127.0.0.1:8000/store/expired-items <br/>
+
